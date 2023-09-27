@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title classname="title">Eqaution Consultant </title>
+    <title>Eqaution Consultant </title>
+    <link rel="stylesheet" href="./index.css" />
 </head>
 <body>
-    <script src="script.js"> </script>
+    <div  class="ec-popup" id="popup-container">
+        <div class="ec-popup__header">
+            <a class="ec-popup__headline"> Equation Consultant</a>
+        </div>
+        <div class="ec-apikey-entry">
+            <a> Enter your Open AI API key to proceed: </a>
+            <input id="api-key-input" type="text" placeholder="open-ai api key"></input>
+            <button id="api-key-submit"> Submit </button>
+        </div>
+        <p id="success-message" style="color: green;"></p>
+    </div>
 </body>
-</html>
+<script src="script.js"></script>
+</html> 

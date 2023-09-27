@@ -1,4 +1,50 @@
-.title {
-    border: 1px solid;
-    border-radius: 24px;
+:root {
+    --color-gray-700: #2f3237;
+    --color-white: #fff;
+    --color-black: #111213;
+    --color-gray-300: #dee3ed;
+    --color-gray-100: #f8f9fc;
+    --color-border-default: var(--color-gray-300);
+    --color-background-light: var(--color-gray-100);
+    --color-text-default: var(--color-gray-700);
+}
+.ec-popup {
+    width: 400px;
+    padding-bottom: 42px;
+    background: var(--color-white);
+    color: var(--color-text-default);
+}
+.ec-popup__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 40px;
+    padding: 0 12px;
+    border-bottom: 1px solid var(--color-border-default);
+    background: var(--color-background-light);
+}
+.ec-popup__headline {
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0;
+    font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: 6px center;
+    background-size: 24px 24px;
+    padding: 2px 8px 2px 8px;
+    margin-left: -8px;
+    transition: background-color 0.2s;
+    border-radius: 4px;
+}
+.ec-apikey-entry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 7px;
+    color: inherit;
 }

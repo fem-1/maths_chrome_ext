@@ -1,11 +1,17 @@
 {
-"manifest_version": 1.0,
+"manifest_version": 3,
 "name": "Math Equation Consultant",
 "description": "Uses Chat GPT to explain any selected maths equations, including notation, symbols and meaning",
-"version": "1.0",
+"version": "1.0.0",
 "author": "Femi Fakokunde",
 "action": {
     "default_popup": "index.html",
     "default_title": "Math Equation Consultant"
-}
+},
+"permissions": [
+    "storage"
+],
+"host_permissions": [
+    "https://api.openai.com/*"
+]
 }

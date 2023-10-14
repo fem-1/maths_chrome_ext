@@ -4,6 +4,18 @@
 "description": "Uses Chat GPT to explain any selected maths equations, including notation, symbols and meaning",
 "version": "1.0.0",
 "author": "Femi Fakokunde",
+"content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["script.js"]
+    }
+  ],
+"web_accessible_resources": [
+    {
+      "resources": ["script.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
 "action": {
     "default_popup": "index.html",
     "default_title": "Math Equation Consultant"

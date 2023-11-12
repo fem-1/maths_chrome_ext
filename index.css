@@ -48,3 +48,6 @@
     margin: 7px;
     color: inherit;
 }
+.invisible {
+    display:none;
+}

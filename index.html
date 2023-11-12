@@ -3,21 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'cdnjs.cloudflare.com';"> -->
     <title>Eqaution Consultant </title>
     <link rel="stylesheet" href="./index.css" />
+    <!-- <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script> -->
 </head>
 <body>
-    <div  class="ec-popup" id="popup-container">
+    <div class="ec-popup" id="popup-container">
         <div class="ec-popup__header">
             <a class="ec-popup__headline"> Equation Consultant</a>
         </div>
-        <div class="ec-apikey-entry">
+        <div class="ec-apikey-entry" id="ec-apikey-entry">
             <a> Enter your Open AI API key to proceed: </a>
             <input id="api-key-input" type="text" placeholder="open-ai api key"></input>
             <button id="api-key-submit"> Submit </button>
         </div>
         <p id="success-message" style="color: green;"></p>
+        <div class="ec-popup invisible" id="popup-container-equations">
+            <div>
+                <h3> Enter an equation: </h3>
+                <input id="equation-input" placeholder="equation..."> </input>
+                <button id="equation-submit"> Submit </button>
+            </div>
+            <div id="equation-output"></div>
+            <p id="equation-output-success-message" style="color: green;"></p>
+        </div>
     </div>
 </body>
-<script src="script.js"></script>
+<script async src="script.js"></script>
 </html> 

@@ -21,9 +21,12 @@
     "default_title": "Math Equation Consultant"
 },
 "permissions": [
-    "storage"
+    "storage",
+    "activeTab",
+    "scripting"
 ],
 "host_permissions": [
-    "https://api.openai.com/*"
+    "https://api.openai.com/*",
+    "https://cdnjs.cloudflare.com/*"
 ]
 }

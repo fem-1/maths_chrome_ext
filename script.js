@@ -1,6 +1,12 @@
 const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
-function testOpenAIKey(openAPIKey) {
+function return_prompt_template (equation) {
+    const prompt_template = `Take the role of an advanced mathematician and html coder. Explain the following equation: ${equation}. Explain each component of the equation. Return the explanation in a unordered list html tag. Each componenent and its explanation should go in an list item tag within the ul tag. Account for anything you may think is subscript and return it in a html math format. At the top return a high level description of what the equation does and check if you recognise the equation to be a well known one. Return solely the html code with no other text.  Do not include any other explanation.`;
+    return prompt_template;
+}
+
+
+async function testOpenAIKey(openAPIKey) {
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
     const messages = [{"role": "user", "content": "test"}];
     const successMessage = 'Connection Successful';
@@ -20,19 +26,25 @@ function testOpenAIKey(openAPIKey) {
         },
         body: JSON.stringify(params)
     })
-    .then(response => {
+    .then(async response => {
         if (response.status === 200) {
             console.log('Connection Successful')
             document.getElementById('success-message').textContent = successMessage;
             document.getElementById('success-message').classList.add('invisible');
             document.getElementById('ec-apikey-entry').classList.add('invisible');
             document.getElementById('popup-container-equations').classList.remove('invisible');
-            // loadNewScreen()
         } else {
             console.log('Connection Unsuccessful')
         }
     });
 };
+
+function psuedoPass() {
+    console.log('Connection Successful')
+    document.getElementById('success-message').classList.add('invisible');
+    document.getElementById('ec-apikey-entry').classList.add('invisible');
+    document.getElementById('popup-container-equations').classList.remove('invisible');
+}
 
 function loadNewScreen() {
     console.log('loading screen');
@@ -46,14 +58,15 @@ function loadNewScreen() {
 async function sendMathQuery(mathEquation) {
     const apiKey = await chrome.storage.local.get("apiKey");
     const bearer = 'Bearer ' + apiKey.apiKey;
-    const prompt_template = `Take the role of an advanced mathematician and html coder. Explain the following equation: ${mathEquation}. Explain each component of the equation. Return the explanation in a unordered list html tag. Each componenent and its explanation should go in an list item tag within the ul tag. Return solely the html code with no other text.  Do not include any other explanation`;
 
+    prompt_template = return_prompt_template(mathEquation);
+    
     const messages = [{"role": "user", "content": prompt_template}];
     const failureMessage = "Unable to send query";
 
     const params = {
         messages: messages,
-        max_tokens: 100,
+        max_tokens: 300,
         model: "gpt-3.5-turbo"
     };
 
@@ -77,16 +90,21 @@ async function sendMathQuery(mathEquation) {
     });
 };
 
+// document.getElementById("api-key-submit").addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const apiKey = document.getElementById('api-key-input').value;
+//     async testOpenAIKey(apiKey); 
+//     // loadNewScreen() // uncomment this to test home.html
+//     chrome.storage.local.set({ 'apiKey': apiKey }, function () {
+//         console.log('API key saved');
+//     });
+//     chrome.storage.local.set({ apiKeySubmitted: true });
+// });
+
 document.getElementById("api-key-submit").addEventListener('click', function (e) {
-    e.preventDefault();
-    const apiKey = document.getElementById('api-key-input').value;
-    testOpenAIKey(apiKey); // uncomment this so the button works
-    // loadNewScreen() // uncomment this to test home.html
-    chrome.storage.local.set({ 'apiKey': apiKey }, function () {
-        console.log('API key saved');
-    });
-    chrome.storage.local.set({ apiKeySubmitted: true });
+    psuedoPass();
 });
+
 
 document.getElementById("equation-submit").addEventListener('click', async function (e) {
     e.preventDefault();

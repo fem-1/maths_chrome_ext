@@ -4,15 +4,29 @@
     --color-black: #111213;
     --color-gray-300: #dee3ed;
     --color-gray-100: #f8f9fc;
+    --color-gray-700: #2f3237;
+    --color-gray-800: #1d1e20;
+    --color-gray-900: #111213;
     --color-border-default: var(--color-gray-300);
     --color-background-light: var(--color-gray-100);
     --color-text-default: var(--color-gray-700);
+    --color-background-default: var(--color-gray-200);
+    --color-background-dark: var(--color-gray-900);
 }
+@font-face {
+    font-family: 'barlow';
+    font-style: normal;
+    font-weight: 1500;
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Barlow-Regular.ttf'); 
+}   
 .ec-popup {
     width: 400px;
+    height: 200px;
     padding-bottom: 42px;
     background: var(--color-white);
     color: var(--color-text-default);
+    position: relative;
+    font-family: 'barlow', sans-serif;
 }
 .ec-popup__header {
     display: flex;
@@ -23,9 +37,10 @@
     padding: 0 12px;
     border-bottom: 1px solid var(--color-border-default);
     background: var(--color-background-light);
+    font-family: 'barlow', sans-serif;
 }
 .ec-popup__headline {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 24px;
     margin: 0;
     font-weight: 600;
@@ -39,15 +54,85 @@
     margin-left: -8px;
     transition: background-color 0.2s;
     border-radius: 4px;
+    font-family: 'barlow', sans-serif;
 }
 .ec-apikey-entry {
+    font-size: 14px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    margin: 7px;
     color: inherit;
+    position: absolute;
+    top: 30%; 
+    width: 100%;
+    font-family: 'barlow', sans-serif;
+    margin: 0;
+    line-height: 24px;
+    margin-bottom: 20px;
+}
+.ec-input {
+    padding: 10px;
+    margin: 8px 0;
+    border: 2px solid #eee;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    border-radius:10px;
+    width: 212px;
+    font-family: inherit;
+    font-size: inherit;
+}
+.ec-apikey-submit{
+    appearance: none;
+    margin: 8px 10px;
+    -webkit-appearance: none;
+    padding: 10px;
+    border: 2px solid #eee;
+    font-family: inherit;
+    font-size: inherit;
+    border-radius: 10px;
+    width: 234px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+.ec-apikey-submit:hover {
+    background-color: lightgrey;
 }
 .invisible {
     display:none;
+}
+.ec-equation-entry {
+    padding-left: 16px;
+    margin-top: 8px;
+    font-size: 13px;
+    border: 2px solid #eee;
+    height: 120px;
+}
+.ec-added-input {
+    width:300px;
+}
+.ec-equation-submit {
+    border: none;
+    padding: 10px;
+    margin: 4px 2px;
+    margin-left: 7px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    border: 2px solid lightgray;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    line-height: 1;
+    
+    border-radius: 50%; 
+    width: 35px;       
+    height: 35px;     
+
+    font-family: inherit;
+    font-size: inherit;
+
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box; 
+}
+.ec-equation-submit:hover {
+    background-color: lightgrey;
 }

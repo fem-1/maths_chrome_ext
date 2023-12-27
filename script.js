@@ -45,16 +45,8 @@ function psuedoPass() {
     document.getElementById('popup-container-equations').classList.remove('invisible');
 };
 
-function loadNewScreen() {
-    console.log('loading screen');
-    fetch('home.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('popup-container').innerHTML = data;
-        });
-};
-
 async function sendMathQuery(mathEquation) {
+    setLoadingSymbol();
     const apiKey = await chrome.storage.local.get("apiKey");
     const bearer = 'Bearer ' + apiKey.apiKey;
 
@@ -83,14 +75,27 @@ async function sendMathQuery(mathEquation) {
             const response_json = await response.json();
             const completion = response_json.choices[0].message.content;
             document.getElementById('equation-output').innerHTML = completion;
+            rmLoadingSymbol();
         } else {
+            rmLoadingSymbol();
             document.getElementById("equation-output-success-message").textContent = failureMessage;
+
         }
     });
 };
 
 function formatGPToutput(gpt_output) {
 
+};
+
+function setLoadingSymbol(){
+    document.getElementById('equation-submit').classList.add('invisible');
+    document.getElementById('equation-submit-loader').classList.remove('invisible');
+};
+
+function rmLoadingSymbol(){
+    document.getElementById('equation-submit-loader').classList.add('invisible');
+    document.getElementById('equation-submit').classList.remove('invisible');
 };
 
 // uncomment this to get normally functionality
@@ -109,12 +114,10 @@ document.getElementById("api-key-submit").addEventListener('click', function (e)
     psuedoPass();
 });
 
-
 document.getElementById("equation-submit").addEventListener('click', async function (e) {
     e.preventDefault();
     const math_equation = document.getElementById('equation-input').value;
     await sendMathQuery(math_equation);
-
 });
 
 

@@ -32,8 +32,11 @@
             <div class="ec-equation-output" id="equation-output"></div>
             <div id="equation-entry" class="ec-equation-entry">
                 <h3> Enter an equation: </h3>
-                <input class="ec-input ec-added-input" id="equation-input" placeholder="y = mx + c..."> </input>
-                <button class="ec-equation-submit" id="equation-submit"><i class="fa fa-arrow-right"></i> </button>
+                <div class="ec-input-loader-submit">
+                    <input class="ec-input ec-added-input" id="equation-input" placeholder="y = mx + c..."> </input>
+                    <button class="ec-equation-submit" id="equation-submit"><i class="fa fa-arrow-right"></i> </button>
+                    <div class="loader invisible" id="equation-submit-loader"></div>
+                </div>
             </div>
             <p id="equation-output-success-message" style="color: green;"></p>
         </div>

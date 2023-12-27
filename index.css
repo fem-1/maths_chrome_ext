@@ -136,3 +136,7 @@
 .ec-equation-submit:hover {
     background-color: lightgrey;
 }
+.ec-equation-output {
+    border: 2px solid #eee;
+    margin-top: 8px;
+}

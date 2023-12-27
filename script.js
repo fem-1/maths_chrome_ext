@@ -1,10 +1,9 @@
 const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
 function return_prompt_template (equation) {
-    const prompt_template = `Take the role of an advanced mathematician and html coder. Explain the following equation: ${equation}. Explain each component of the equation. Return the explanation in a unordered list html tag. Each componenent and its explanation should go in an list item tag within the ul tag. Account for anything you may think is subscript and return it in a html math format. At the top return a high level description of what the equation does and check if you recognise the equation to be a well known one. Return solely the html code with no other text.  Do not include any other explanation.`;
+    const prompt_template = `Take the role of an advanced mathematician and html coder. Explain the following equation: ${equation}. Explain each component of the equation. Return the explanation in a unordered list html tag. Each component and its explanation should go in an list item tag within the ul tag. Account for anything you may think is subscript and return it in a html math format. At the top return, a high-level description of what the equation does and check if you recognise the equation to be a well known one. Return solely the html code with no other text. Do not include any other text aside from what is being asked.`;
     return prompt_template;
-}
-
+};
 
 async function testOpenAIKey(openAPIKey) {
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
@@ -44,7 +43,7 @@ function psuedoPass() {
     document.getElementById('success-message').classList.add('invisible');
     document.getElementById('ec-apikey-entry').classList.add('invisible');
     document.getElementById('popup-container-equations').classList.remove('invisible');
-}
+};
 
 function loadNewScreen() {
     console.log('loading screen');
@@ -90,6 +89,11 @@ async function sendMathQuery(mathEquation) {
     });
 };
 
+function formatGPToutput(gpt_output) {
+
+};
+
+// uncomment this to get normally functionality
 // document.getElementById("api-key-submit").addEventListener('click', function (e) {
 //     e.preventDefault();
 //     const apiKey = document.getElementById('api-key-input').value;

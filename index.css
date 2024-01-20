@@ -7,6 +7,8 @@
     --color-gray-700: #2f3237;
     --color-gray-800: #1d1e20;
     --color-gray-900: #111213;
+    --mid-gray: #707070;
+    --hard-gray: #515152;
     --color-border-default: var(--color-gray-300);
     --color-background-light: var(--color-gray-100);
     --color-text-default: var(--color-gray-700);
@@ -21,8 +23,8 @@
 }   
 .ec-popup {
     width: 400px;
-    height: 200px;
-    padding-bottom: 42px;
+    height: auto;
+    padding-bottom: 22px;
     background: var(--color-white);
     color: var(--color-text-default);
     position: relative;
@@ -64,12 +66,15 @@
     justify-content: space-between;
     color: inherit;
     position: absolute;
-    top: 30%; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     font-family: 'barlow', sans-serif;
-    margin: 0;
     line-height: 24px;
-    margin-bottom: 20px;
+    margin-top: 80px;
+    padding-top: 50px;
+    padding-bottom: 30px;
 }
 .ec-input {
     padding: 10px;
@@ -118,14 +123,14 @@
     transition: 0.2s ease;
     border: 2px solid lightgray;
     box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-    line-height: 1;
+    line-height: 0.8;
     
     border-radius: 50%; 
-    width: 35px;       
-    height: 35px;     
+    width: 36px;       
+    height: 36px;     
 
     font-family: inherit;
-    font-size: inherit;
+    font-size: 11px;
 
     justify-content: center;
     align-items: center;
@@ -138,6 +143,7 @@
 .ec-equation-output {
     border: 2px solid #eee;
     margin-top: 8px;
+    
 }
 .ec-input-loader-submit {
     display: flex;
@@ -154,11 +160,38 @@
     align-items: center;
     padding: 10px;
     margin: 4px 2px;
-    margin-left: 7px;
+    margin-left: 9px;
     box-sizing: border-box; 
 }
 @keyframes spin {
     100%{
         transform: rotate(360deg)
     }
+}
+.ec-return-to-api-submit{
+    cursor: pointer;
+    transition: 0.2s ease;   
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    border-style: none;
+    background: white;
+    bottom:0;
+    right: 9px;
+    /* left:-10px; */
+    position: absolute;
+    color: var(--mid-gray);
+}
+.ec-return-to-api-submit:hover {
+    transform: scale(0.92);
+    color: var(--hard-gray)
+  }
+.ec-equation-para{
+
+}
+.ec-equation-list-element{
+
+}
+.ec-equation-ul-element{
+
 }

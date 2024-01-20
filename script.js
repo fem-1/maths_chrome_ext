@@ -1,8 +1,9 @@
 const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
 function return_prompt_template (equation) {
-    const prompt_template = `Take the role of an advanced mathematician and html coder. Explain the following equation: ${equation}. Explain each component of the equation. Return the explanation in a unordered list html tag. Each component and its explanation should go in an list item tag within the ul tag. Account for anything you may think is subscript and return it in a html math format. At the top return, a high-level description of what the equation does and check if you recognise the equation to be a well known one. Return solely the html code with no other text. Do not include any other text aside from what is being asked.`;
-    return prompt_template;
+    const prompt_template = `Take the role of an advanced mathematician and html coder. Explain the equation ${equation}, returning the output in an unordered list html tag. Each component should be in an li tag with the explanation next to it like so: <li> component – explanation. Account for anything you may think is mathematical notation using html math format. Include a high-level description in a <p> tag. Include the class “ec-equation-para” in the <p> tag. Include the class “ec-equation-list-element” in the <li> tag.  Include the class “ec-equation-ul-element” in the <ul> tag. Check if you recognise the equation to be well-known. Keep the component and the explanation of it in the same <li> tag! Return ONLY the html code with no other text. Do not include any text that is not html.`;
+    const new_prompt_template = `Explain the equation ${equation}. Give a summary of the equation in one paragraph of approximately 60 words and give a further explanation of each component of the equation in separated lines like so: component: explanation.`
+    return new_prompt_template;
 };
 
 async function testOpenAIKey(openAPIKey) {
@@ -48,6 +49,7 @@ function psuedoPass() {
 async function sendMathQuery(mathEquation) {
     setLoadingSymbol();
     const apiKey = await chrome.storage.local.get("apiKey");
+    console.log(apiKey)
     const bearer = 'Bearer ' + apiKey.apiKey;
 
     prompt_template = return_prompt_template(mathEquation);
@@ -58,7 +60,8 @@ async function sendMathQuery(mathEquation) {
     const params = {
         messages: messages,
         max_tokens: 300,
-        model: "gpt-3.5-turbo"
+        model: "gpt-3.5-turbo", 
+        temperature: 0.1
     };
 
     fetch(apiUrl, {
@@ -74,7 +77,9 @@ async function sendMathQuery(mathEquation) {
             console.log('Query Sent Successfully');
             const response_json = await response.json();
             const completion = response_json.choices[0].message.content;
-            document.getElementById('equation-output').innerHTML = completion;
+            formatted = formatEquationText(completion);
+            document.getElementById('equation-output').classList.remove('invisible')
+            document.getElementById('equation-output').innerHTML = formatted;
             rmLoadingSymbol();
         } else {
             rmLoadingSymbol();
@@ -84,9 +89,6 @@ async function sendMathQuery(mathEquation) {
     });
 };
 
-function formatGPToutput(gpt_output) {
-
-};
 
 function setLoadingSymbol(){
     document.getElementById('equation-submit').classList.add('invisible');
@@ -97,6 +99,53 @@ function rmLoadingSymbol(){
     document.getElementById('equation-submit-loader').classList.add('invisible');
     document.getElementById('equation-submit').classList.remove('invisible');
 };
+
+
+function returnToApiSubmit() {
+    document.getElementById('ec-apikey-entry').classList.remove('invisible');
+    document.getElementById('popup-container-equations').classList.add('invisible');
+};
+
+
+function formatEquationText(text) {
+    // Split the text into paragraphs
+
+    const paragraphs = text.split('\n\n');
+
+    console.log(paragraphs)
+
+    const components = paragraphs[1].split('\n');
+
+    console.log(components);
+
+    let componentList = '<ul class="ec-equation-ul-element">';
+    components.forEach(component => {
+        componentList += `<li class="ec-equation-list-element">${component.trim()}</li>`
+    });
+    componentList += '</ul>';
+
+    paragraphs[1] = componentList;
+    const formattedText = paragraphs.join('\n\n');
+
+    return formattedText;
+};
+
+
+// Document Listeners
+
+document.getElementById("api-key-submit").addEventListener('click', function (e) {
+    psuedoPass();
+});
+
+document.getElementById("return-to-api-submit").addEventListener('click', function (e) {
+    returnToApiSubmit();
+});
+
+document.getElementById("equation-submit").addEventListener('click', async function (e) {
+    e.preventDefault();
+    const math_equation = document.getElementById('equation-input').value;
+    await sendMathQuery(math_equation);
+});
 
 // uncomment this to get normally functionality
 // document.getElementById("api-key-submit").addEventListener('click', function (e) {
@@ -109,15 +158,3 @@ function rmLoadingSymbol(){
 //     });
 //     chrome.storage.local.set({ apiKeySubmitted: true });
 // });
-
-document.getElementById("api-key-submit").addEventListener('click', function (e) {
-    psuedoPass();
-});
-
-document.getElementById("equation-submit").addEventListener('click', async function (e) {
-    e.preventDefault();
-    const math_equation = document.getElementById('equation-input').value;
-    await sendMathQuery(math_equation);
-});
-
-

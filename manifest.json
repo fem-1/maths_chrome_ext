@@ -14,7 +14,7 @@
     {
       "resources": ["script.js"],
       "matches": ["<all_urls>"]
-    }
+    }  
   ],
 "action": {
     "default_popup": "index.html",

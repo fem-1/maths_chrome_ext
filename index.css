@@ -22,9 +22,13 @@
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/Barlow-Regular.ttf'); 
 }   
 .ec-popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     width: 400px;
     height: auto;
-    padding-bottom: 22px;
+    /* padding-bottom: 22px; */
     background: var(--color-white);
     color: var(--color-text-default);
     position: relative;
@@ -40,6 +44,7 @@
     border-bottom: 1px solid var(--color-border-default);
     background: var(--color-background-light);
     font-family: 'barlow', sans-serif;
+    width: 370px;
 }
 .ec-popup__headline {
     font-size: 16px;
@@ -66,15 +71,11 @@
     justify-content: space-between;
     color: inherit;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 100%;
     font-family: 'barlow', sans-serif;
-    line-height: 24px;
-    margin-top: 80px;
-    padding-top: 50px;
-    padding-bottom: 30px;
+    margin: 40px;
+    padding: 20px;
+    gap: 8px;
 }
 .ec-input {
     padding: 10px;
@@ -88,7 +89,6 @@
 }
 .ec-apikey-submit{
     appearance: none;
-    margin: 8px 10px;
     -webkit-appearance: none;
     padding: 10px;
     border: 2px solid #eee;

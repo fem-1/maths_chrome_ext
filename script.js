@@ -9,7 +9,6 @@ function return_prompt_template (equation) {
 async function testOpenAIKey(openAPIKey) {
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
     const messages = [{"role": "user", "content": "test"}];
-    const successMessage = 'Connection Successful';
     const bearer = 'Bearer ' + openAPIKey;
 
     const params = {
@@ -29,8 +28,6 @@ async function testOpenAIKey(openAPIKey) {
     .then(async response => {
         if (response.status === 200) {
             console.log('Connection Successful')
-            document.getElementById('success-message').textContent = successMessage;
-            document.getElementById('success-message').classList.add('invisible');
             document.getElementById('ec-apikey-entry').classList.add('invisible');
             document.getElementById('popup-container-equations').classList.remove('invisible');
         } else {
@@ -41,7 +38,6 @@ async function testOpenAIKey(openAPIKey) {
 
 function psuedoPass() {
     console.log('Connection Successful')
-    document.getElementById('success-message').classList.add('invisible');
     document.getElementById('ec-apikey-entry').classList.add('invisible');
     document.getElementById('popup-container-equations').classList.remove('invisible');
 };

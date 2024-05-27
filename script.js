@@ -131,9 +131,9 @@ function formatEquationText(text) {
 
 // Document Listeners
 
-document.getElementById("api-key-submit").addEventListener('click', function (e) {
-    psuedoPass();
-});
+// document.getElementById("api-key-submit").addEventListener('click', function (e) {
+//     psuedoPass();
+// });
 
 document.getElementById("return-to-api-submit").addEventListener('click', function (e) {
     returnToApiSubmit();
@@ -146,13 +146,13 @@ document.getElementById("equation-submit").addEventListener('click', async funct
 });
 
 // uncomment this to get normally functionality
-// document.getElementById("api-key-submit").addEventListener('click', function (e) {
-//     e.preventDefault();
-//     const apiKey = document.getElementById('api-key-input').value;
-//     async testOpenAIKey(apiKey); 
-//     // loadNewScreen() // uncomment this to test home.html
-//     chrome.storage.local.set({ 'apiKey': apiKey }, function () {
-//         console.log('API key saved');
-//     });
-//     chrome.storage.local.set({ apiKeySubmitted: true });
-// });
+document.getElementById("api-key-submit").addEventListener('click', function (e) {
+    e.preventDefault();
+    const apiKey = document.getElementById('api-key-input').value;
+    testOpenAIKey(apiKey); 
+    // loadNewScreen() // uncomment this to test home.html
+    chrome.storage.local.set({ 'apiKey': apiKey }, function () {
+        console.log('API key saved');
+    });
+    chrome.storage.local.set({ apiKeySubmitted: true });
+});

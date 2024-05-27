@@ -3,13 +3,12 @@ function loginOnOpen() {
         if (result.apiKey) {
             changeScreen();
         } else {
-            console.log('No pre saved API key');
+            console.log('No pre-saved API key');
         }
     });
 }
 
 loginOnOpen();
-
 
 const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
@@ -172,4 +171,8 @@ document.getElementById("api-key-submit").addEventListener('click', function (e)
         console.log('API key saved');
     });
     chrome.storage.local.set({ apiKeySubmitted: true });
+});
+
+document.addEventListener('click', function() {
+    chrome.runtime.sendMessage({action: "closePopup"});
 });

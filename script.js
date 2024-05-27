@@ -1,3 +1,16 @@
+function loginOnOpen() {
+    chrome.storage.local.get('apiKey', function(result) {
+        if (result.apiKey) {
+            changeScreen();
+        } else {
+            console.log('No pre saved API key');
+        }
+    });
+}
+
+loginOnOpen();
+
+
 const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
 function return_prompt_template (equation) {
@@ -28,13 +41,17 @@ async function testOpenAIKey(openAPIKey) {
     })
     .then(async response => {
         if (response.status === 200) {
-            console.log('Connection Successful')
-            document.getElementById('ec-apikey-entry').classList.add('invisible');
-            document.getElementById('popup-container-equations').classList.remove('invisible');
+            changeScreen();
         } else {
             console.log('Connection Unsuccessful')
         }
     });
+};
+
+function changeScreen() {
+    console.log('Connection Successful')
+    document.getElementById('ec-apikey-entry').classList.add('invisible');
+    document.getElementById('popup-container-equations').classList.remove('invisible');
 };
 
 function psuedoPass() {

@@ -13,3 +13,8 @@ Login to the extension by providing your Open AI API key:
 Submit an equation. Use the exit button to return to the login page:
 
 <img src="images/eq_enter.png" alt="equation entry page" width="600" style="max-width:100%;height:auto;">
+
+
+## How to load the extension
+
+Naviagte to chrome://extensions/ and select load unpacked. Select the folder of the cloned repo. 

@@ -151,9 +151,16 @@ function formatEquationText(text) {
 //     psuedoPass();
 // });
 
-document.getElementById("return-to-api-submit").addEventListener('click', function (e) {
-    returnToApiSubmit();
-});
+const return_button = document.getElementById('return-to-api-submit');
+if (return_button) {
+    return_button.addEventListener('click', function (e) {
+        returnToApiSubmit();
+    });
+};
+
+// document.getElementById("return-to-api-submit").addEventListener('click', function (e) {
+//     returnToApiSubmit();
+// });
 
 document.getElementById("equation-submit").addEventListener('click', async function (e) {
     e.preventDefault();

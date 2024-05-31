@@ -158,27 +158,27 @@ if (return_button) {
     });
 };
 
-// document.getElementById("return-to-api-submit").addEventListener('click', function (e) {
-//     returnToApiSubmit();
-// });
-
-document.getElementById("equation-submit").addEventListener('click', async function (e) {
-    e.preventDefault();
-    const math_equation = document.getElementById('equation-input').value;
-    await sendMathQuery(math_equation);
-});
-
-// uncomment this to get normally functionality
-document.getElementById("api-key-submit").addEventListener('click', function (e) {
-    e.preventDefault();
-    const apiKey = document.getElementById('api-key-input').value;
-    testOpenAIKey(apiKey); 
-    // loadNewScreen() // uncomment this to test home.html
-    chrome.storage.local.set({ 'apiKey': apiKey }, function () {
-        console.log('API key saved');
+const equation_submit = document.getElementById('equation-submit');
+if (equation_submit) {
+    equation_submit.addEventListener('click', async function (e) {
+        e.preventDefault();
+        const math_equation = document.getElementById('equation-input').value;
+        await sendMathQuery(math_equation);
     });
-    chrome.storage.local.set({ apiKeySubmitted: true });
-});
+};
+
+const api_key_submit = document.getElementById("api-key-submit");
+if (api_key_submit) {
+    api_key_submit.addEventListener('click', function (e) {
+        e.preventDefault();
+        const apiKey = document.getElementById('api-key-input').value;
+        testOpenAIKey(apiKey); 
+        chrome.storage.local.set({ 'apiKey': apiKey }, function () {
+            console.log('API key saved');
+        });
+        chrome.storage.local.set({ apiKeySubmitted: true });
+    });
+};
 
 document.addEventListener('click', function() {
     chrome.runtime.sendMessage({action: "closePopup"});

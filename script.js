@@ -180,6 +180,6 @@ if (api_key_submit) {
     });
 };
 
-document.addEventListener('click', function() {
-    chrome.runtime.sendMessage({action: "closePopup"});
-});
+window.onblur = function() {
+    chrome.runtime.sendMessage({popupClosed: true});
+};

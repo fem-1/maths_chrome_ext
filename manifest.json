@@ -30,6 +30,9 @@
     "activeTab",
     "scripting"
 ],
+"background": {
+  "service_worker": "background.js"
+},
 "host_permissions": [
     "https://api.openai.com/*",
     "https://cdnjs.cloudflare.com/*"

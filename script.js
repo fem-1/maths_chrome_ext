@@ -13,9 +13,10 @@ loginOnOpen();
 const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
 function return_prompt_template (equation) {
-    // const prompt_template = `Take the role of an advanced mathematician and html coder. Explain the equation ${equation}, returning the output in an unordered list html tag. Each component should be in an li tag with the explanation next to it like so: <li> component – explanation. Account for anything you may think is mathematical notation using html math format. Include a high-level description in a <p> tag. Include the class “ec-equation-para” in the <p> tag. Include the class “ec-equation-list-element” in the <li> tag.  Include the class “ec-equation-ul-element” in the <ul> tag. Check if you recognise the equation to be well-known. Keep the component and the explanation of it in the same <li> tag! Return ONLY the html code with no other text. Do not include any text that is not html.`;
-    // const new_prompt_template = `Explain the equation ${equation}. Give an overview of the equation and its uses in one paragraph of approximately 20 words. After, give a further explanation of each component of the equation in separated lines like so: component: explanation. The output should be structured as follows: a paragraph with a summary, new line, explanations of each component on a new line.` 
-    const new_prompt_template = `Explain the equation ${equation} in one brief paragraph, highlighting its significance in mathematics. Then, in a new line, break down each component of the equation separately like so component: explanation.`
+    const new_prompt_template = `You are a mathematician who is capable of understanding and explaining any mathematical equation. Your role will be to explain the elements of an equation.
+    Return your results as a json in the form: {"explanation": "explanation of the element", "element1": "explanation of element1", "element2": "explanation of element2"} and so on.
+    For example, if given the equation y = mx + c, your response will be {"explanation": "This equation represents the slope-intercept form of a linear equation", "y": "This represents the dependent variable or the output of the function, which changes depending on the value of x", "m": "This is the slope of the line. The slope measures how steep the line is and is the change in y divided by the change in x", "c": " The y-intercept, representing the value of y when x is equal to zero."}
+    Explain the equation ${equation} using this format.`
     return new_prompt_template;
 };
 
@@ -27,7 +28,7 @@ async function testOpenAIKey(openAPIKey) {
     const params = {
         messages: messages,
         max_tokens: 10,
-        model: "gpt-3.5-turbo"
+        model: "gpt-4-turbo"
     };
 
     fetch(apiUrl, {
@@ -72,7 +73,7 @@ async function sendMathQuery(mathEquation) {
     const params = {
         messages: messages,
         max_tokens: 300,
-        model: "gpt-3.5-turbo", 
+        model: "gpt-4-turbo", 
         temperature: 0.1
     };
 
@@ -88,6 +89,7 @@ async function sendMathQuery(mathEquation) {
         if (response.status === 200) {
             console.log('Query Sent Successfully');
             const response_json = await response.json();
+            console.log(response_json);
             const completion = response_json.choices[0].message.content;
             console.log(completion);
             formatted = formatEquationText(completion);
@@ -120,29 +122,22 @@ function returnToApiSubmit() {
 };
 
 
-function formatEquationText(text) {
-    // Split the text into paragraphs
+function formatEquationText(gpt_response) {
 
-    const paragraphs = text.split('\n\n');
+    const jsonInput = JSON.parse(gpt_response);
+    
+    const explanation = `<p class="ec-equation-para">${jsonInput.explanation}</p>`;
 
-    const formattedPara = `<p class="ec-equation-para">${paragraphs}</p>`
-    paragraphs[0] = formattedPara
+    const elements = Object.keys(jsonInput)
+        .filter(key => key !== "explanation")
+        .map(key => `<li class="ec-equation-list-element"><strong>${key}:</strong> ${jsonInput[key]}</li>`);
 
-    const components = paragraphs[1].split('\n');
+    const elementsList = `<ul class="ec-equation-ul-element">\n${elements.join("\n")}\n</ul>`;
 
-    let componentList = '<ul class="ec-equation-ul-element">';
-    components.forEach(component => {
-        componentList += `<li class="ec-equation-list-element">${component.trim()}</li>`
-    });
-    componentList += '</ul>';
+    const formattedText = [explanation, elementsList].join("\n\n");
 
-    paragraphs[1] = componentList;
-    const formattedText = paragraphs.join('\n\n');
-
-    console.log(formattedText)
-
-    return formattedText;
-};
+    return formattedText
+}
 
 
 // Document Listeners

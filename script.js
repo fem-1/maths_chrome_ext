@@ -24,28 +24,43 @@ async function testOpenAIKey(openAPIKey) {
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
     const messages = [{"role": "user", "content": "test"}];
     const bearer = 'Bearer ' + openAPIKey;
+    const response_message_div = document.getElementById("response-message");
 
     const params = {
         messages: messages,
-        max_tokens: 10,
+        max_tokens: 1350,
         model: "gpt-4-turbo"
     };
+    try{
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Authorization': bearer,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(params)
+        })
+        .then(async response => {
+            if (response.status === 200) {
 
-    fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Authorization': bearer,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(params)
-    })
-    .then(async response => {
-        if (response.status === 200) {
-            changeScreen();
-        } else {
-            console.log('Connection Unsuccessful')
-        }
-    });
+                await new Promise((resolve) => {
+                    setTimeout(() => {
+                        response_message_div.textContent = "Connection Successful";
+                        response_message_div.style.color = "green";
+                        resolve();
+                    }, 3000);
+                });
+                changeScreen();
+            } else {
+                response_message_div.textContent = "Connection Unsuccessful";
+                response_message_div.style.color = "red";
+            }
+        });
+    } catch (error) {
+        console.error("Error:", error);
+        response_message_div.textContent = "Connection Unsuccessful";
+        response_message_div.style.color = "red";
+    }
 };
 
 function changeScreen() {
@@ -138,13 +153,6 @@ function formatEquationText(gpt_response) {
 
     return formattedText
 }
-
-
-// Document Listeners
-
-// document.getElementById("api-key-submit").addEventListener('click', function (e) {
-//     psuedoPass();
-// });
 
 const return_button = document.getElementById('return-to-api-submit');
 if (return_button) {
